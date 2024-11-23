@@ -34,7 +34,9 @@ import com.sopkathon.team2.ui.theme.GAMJATheme
 import org.sopt.and.R
 
 @Composable
-fun HomeScreen(modifier: Modifier = Modifier,viewModel: HomeViewModel= viewModel()) {
+fun HomeScreen(modifier: Modifier = Modifier,viewModel: HomeViewModel= viewModel(),
+               onNavigateToProfile:()->Unit={},
+               onNavigateToWrite:()->Unit={}) {
     val userInfo by viewModel.userInfo.collectAsState()
 
     Column(
@@ -89,7 +91,7 @@ fun HomeScreen(modifier: Modifier = Modifier,viewModel: HomeViewModel= viewModel
         }
         Spacer(modifier = Modifier.weight(1f))
         Text(
-            text = "${userInfo?.body()?.nickName} 님!",
+            text = "${userInfo?.nickName} 님!",
             style = GAMJATheme.typography.headRegular26,
             color = GAMJATheme.colors.white
         )
