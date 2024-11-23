@@ -3,6 +3,7 @@ package com.sopkathon.team2.presentation.ui.home
 import HomeViewModel
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -28,106 +29,126 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.sopkathon.team2.presentation.ui.home.component.InstagramShareScreen
 import com.sopkathon.team2.presentation.util.noRippleClickable
 import com.sopkathon.team2.presentation.util.roundedBackgroundWithPadding
+import com.sopkathon.team2.presentation.util.showIf
 import com.sopkathon.team2.ui.theme.GAMJATheme
 import org.sopt.and.R
 
 @Composable
-fun HomeScreen(modifier: Modifier = Modifier,viewModel: HomeViewModel= viewModel(),
-               onNavigateToProfile:()->Unit={},
-               onNavigateToWrite:()->Unit={}) {
+fun HomeScreen(
+    modifier: Modifier = Modifier, viewModel: HomeViewModel = viewModel(),
+    onNavigateToProfile: () -> Unit = {},
+    onNavigateToWrite: () -> Unit = {}
+) {
     val userInfo by viewModel.userInfo.collectAsState()
+    val shareScreenVisible by viewModel.shareScreenVisible.collectAsState()
 
-    Column(
-        modifier = Modifier
+    Box(
+        modifier = modifier
             .fillMaxSize()
-            .background(
-                brush = Brush.linearGradient(
-                    colorStops = arrayOf(
-                        0.15f to Color(0xFF121413),
-                        1.0f to Color(0xFF241705)
-                    ),
-                    start = Offset(0f, 0f),
-                    end = Offset(1000f, 1000f)
-                )
-            )
-            .padding(24.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(
+                    brush = Brush.linearGradient(
+                        colorStops = arrayOf(
+                            0.15f to Color(0xFF121413),
+                            1.0f to Color(0xFF241705)
+                        ),
+                        start = Offset(0f, 0f),
+                        end = Offset(1000f, 1000f)
+                    )
+                )
+                .padding(24.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
 
-        Row(modifier = Modifier.fillMaxWidth()) {
+            Row(modifier = Modifier.fillMaxWidth()) {
+                Text(
+                    text = "Stupid Potato",
+                    style = GAMJATheme.typography.headRegular20,
+                    color = GAMJATheme.colors.main
+                )
+                Spacer(modifier = Modifier.weight(1f))
+                Image(
+                    imageVector = ImageVector.vectorResource(R.drawable.ic_home_history),
+                    contentDescription = null,
+                    modifier = Modifier.noRippleClickable {
+                        onNavigateToProfile()
+                    }
+                )
+
+                Spacer(modifier = Modifier.width(12.dp))
+                Image(
+                    imageVector = ImageVector.vectorResource(R.drawable.ic_home_friend_list),
+                    contentDescription = null,
+                    modifier = Modifier.noRippleClickable {
+                        //TODO: 친구 목록 바텀시트
+                    }
+                )
+                Spacer(modifier = Modifier.width(12.dp))
+
+                Image(
+                    imageVector = ImageVector.vectorResource(R.drawable.ic_home_share),
+                    contentDescription = null,
+                    modifier = Modifier.noRippleClickable {
+                        viewModel.changeShareScreenVisible()
+                    }
+                )
+            }
+            Spacer(modifier = Modifier.weight(1f))
             Text(
-                text = "Stupid Potato",
-                style = GAMJATheme.typography.headRegular20,
-                color = GAMJATheme.colors.main
+                text = "${userInfo?.nickName} 님!",
+                style = GAMJATheme.typography.headRegular26,
+                color = GAMJATheme.colors.white
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            Text(
+                text = "감자라고 낙심하지마세요",
+                style = GAMJATheme.typography.headRegular16,
+                color = GAMJATheme.colors.white
+            )
+            Spacer(modifier = Modifier.height(28.dp))
+
+            Image(
+                painter = painterResource(R.drawable.img_dummy),
+                contentDescription = null,
+                modifier = modifier
+                    .fillMaxWidth()
+
             )
             Spacer(modifier = Modifier.weight(1f))
-            Image(
-                imageVector = ImageVector.vectorResource(R.drawable.ic_home_history),
-                contentDescription = null,
-                modifier = Modifier.noRippleClickable {
-                    //TODO: 내가 쓴 감자짓
-                }
-            )
 
-            Spacer(modifier = Modifier.width(12.dp))
-            Image(
-                imageVector = ImageVector.vectorResource(R.drawable.ic_home_friend_list),
-                contentDescription = null,
-                modifier = Modifier.noRippleClickable {
-                    //TODO: 친구 목록 바텀시트
-                }
+            Text(
+                text = "감자짓 작성하러가기",
+                textAlign = TextAlign.Center,
+                style = GAMJATheme.typography.bodyMedium16,
+                color = GAMJATheme.colors.gray10,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .roundedBackgroundWithPadding(
+                        padding = PaddingValues(vertical = 15.dp),
+                        backgroundColor = GAMJATheme.colors.main,
+                        cornerRadius = 50.dp
+                    )
+                    .noRippleClickable {
+                        onNavigateToWrite()
+                    }
             )
-            Spacer(modifier = Modifier.width(12.dp))
+            Spacer(modifier = Modifier.height(30.dp))
 
-            Image(
-                imageVector = ImageVector.vectorResource(R.drawable.ic_home_share),
-                contentDescription = null,
-                modifier = Modifier.noRippleClickable {
-                    //TODO: InstagramShareScreen
-                }
-            )
         }
-        Spacer(modifier = Modifier.weight(1f))
-        Text(
-            text = "${userInfo?.nickName} 님!",
-            style = GAMJATheme.typography.headRegular26,
-            color = GAMJATheme.colors.white
-        )
-        Spacer(modifier = Modifier.height(16.dp))
-        Text(
-            text = "감자라고 낙심하지마세요",
-            style = GAMJATheme.typography.headRegular16,
-            color = GAMJATheme.colors.white
-        )
-        Spacer(modifier = Modifier.height(28.dp))
 
-        Image(
-            painter = painterResource(R.drawable.img_dummy),
-            contentDescription = null,
-            modifier = modifier
-                .fillMaxWidth()
-
-        )
-        Spacer(modifier = Modifier.weight(1f))
-
-        Text(
-            text = "감자짓 작성하러가기",
-            textAlign = TextAlign.Center,
-            style = GAMJATheme.typography.bodyMedium16,
-            color = GAMJATheme.colors.gray10,
-            modifier = Modifier.fillMaxWidth().roundedBackgroundWithPadding(
-                padding = PaddingValues(vertical = 15.dp),
-                backgroundColor = GAMJATheme.colors.main,
-                cornerRadius = 50.dp
-            ).noRippleClickable {
-                //TODO: 작성 뷰로 이동
-            }
-        )
-        Spacer(modifier = Modifier.height(30.dp))
+        InstagramShareScreen(nickname = userInfo?.nickName ?: "서버통신 에러",
+            level = userInfo?.level ?: -1,
+            modifier = Modifier.showIf(shareScreenVisible),
+            closeButtonClicked = { viewModel.changeShareScreenVisible() })
 
     }
+
 }
 
 @Preview

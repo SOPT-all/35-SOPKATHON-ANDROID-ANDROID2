@@ -14,9 +14,22 @@ class HomeViewModel : ViewModel() {
     private val _userInfo = MutableStateFlow<ResponseUserDto?>(null)
     val userInfo: StateFlow<ResponseUserDto?> = _userInfo
 
+    private val _shareScreenVisible = MutableStateFlow(false)
+    val shareScreenVisible: StateFlow<Boolean> = _shareScreenVisible
+
+    private fun setShareScreenVisible(visible: Boolean) {
+        _shareScreenVisible.value = visible
+    }
+
+
+    fun changeShareScreenVisible() {
+        _shareScreenVisible.value = !_shareScreenVisible.value
+    }
+
 
     init {
         getUserInfo(1)
+        setShareScreenVisible(false)
     }
 
     private fun getUserInfo(userId: Long) {
