@@ -50,7 +50,9 @@ import org.sopt.and.R
 
 @Composable
 fun WriteScreen(
-    viewModel: WriteViewModel = viewModel()
+    viewModel: WriteViewModel = viewModel(),
+    modifier: Modifier = Modifier,
+    onNavigateToComplete: () -> Unit = {}
 ) {
     val text = viewModel.text
     val imageUri = viewModel.imageUri
@@ -61,29 +63,27 @@ fun WriteScreen(
         viewModel.onChangedImage(uri)
     }
 
-    Scaffold(
-        containerColor = GAMJATheme.colors.black,
-        content = { innerPadding ->
-            WriteScreenContent(
-                modifier = Modifier
-                    .background(
-                        brush = Brush.linearGradient(
-                            colorStops = arrayOf(
-                                0.15f to Color(0xFF121413),
-                                1.0f to Color(0xFF241705)
-                            ),
-                            start = Offset(0f, 0f),
-                            end = Offset(1000f, 1000f)
-                        )
-                    )
-                    .padding(innerPadding),
-                text = text,
-                onChangedTextField = { viewModel.onChangedTextField(it) },
-                textSize = viewModel.getTextSize(),
-                imageUri = imageUri,
-                onClick = { launcher.launch("image/*") },
-                onCompleteClick = { }
-            )
+    WriteScreenContent(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(
+                brush = Brush.linearGradient(
+                    colorStops = arrayOf(
+                        0.15f to Color(0xFF121413),
+                        1.0f to Color(0xFF241705)
+                    ),
+                    start = Offset(0f, 0f),
+                    end = Offset(1000f, 1000f)
+                )
+            ),
+        text = text,
+        onChangedTextField = { viewModel.onChangedTextField(it) },
+        textSize = viewModel.getTextSize(),
+        imageUri = imageUri,
+        onClick = { launcher.launch("image/*") },
+        onCompleteClick = {
+            viewModel.postContent()
+            onNavigateToComplete()
         }
     )
 }
@@ -100,7 +100,6 @@ private fun WriteScreenContent(
 ) {
     Column(
         modifier = modifier
-            .fillMaxSize()
             .padding(horizontal = 24.dp)
     ) {
         Text(
@@ -163,7 +162,7 @@ fun AddPictureItem(
                         )
                     )
                 }
-                .height(207.dp)
+                .height(134.dp)
                 .fillMaxWidth(),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally

@@ -1,10 +1,15 @@
 package com.sopkathon.team2.data.service
 
+import com.sopkathon.team2.data.model.request.RequestContentDto
+import com.sopkathon.team2.data.model.response.ResponseContentDto
 import com.sopkathon.team2.data.model.response.ResponseDummyDto
 import com.sopkathon.team2.data.model.response.ResponseUserDto
+import com.sopkathon.team2.data.model.response.ResponseWrapper
 import retrofit2.Response
+import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
 
 interface Service {
     @POST("/dummy")
@@ -13,11 +18,9 @@ interface Service {
     @POST("/board/{userId}")
     suspend fun postContent(
         @Path("userId") userId: Int,
-        @Body content: String
-    ): ResponseContentDto
+        @Body requestContentDto: RequestContentDto
+    ): Response<ResponseContentDto>
 
-    @GET("/user/{1}")
-    fun getUserById(userId: Long): Response<ResponseUserDto>
     @GET("/user/{userId}")
     suspend fun getUserById(@Path("userId") userId: Long): Response<ResponseWrapper<ResponseUserDto>>
 }

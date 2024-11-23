@@ -7,6 +7,7 @@ import androidx.navigation.compose.composable
 import com.sopkathon.team2.presentation.model.Route
 import com.sopkathon.team2.presentation.ui.home.HomeScreen
 import com.sopkathon.team2.presentation.ui.main.MainNavigator
+import com.sopkathon.team2.presentation.ui.write.WriteScreen
 
 @Composable
 fun MainNavHost(
@@ -25,7 +26,7 @@ fun MainNavHost(
 //            ProfileScreen(modifier = Modifier.padding(padding),onNavigateToHome = { navigator.navigate(Route.Home) })
         }
         composable(Route.Write::class.qualifiedName!!) {
-//            WriteScreen(modifier = Modifier.padding(padding),onNavigateToComplete = { navigator.navigate(Route.Complete) })
+            WriteScreen(modifier = Modifier.padding(padding),onNavigateToComplete = { navigator.navigate(Route.Complete) })
         }
         composable(Route.Complete::class.qualifiedName!!) {
 //            CompleteScreen(
