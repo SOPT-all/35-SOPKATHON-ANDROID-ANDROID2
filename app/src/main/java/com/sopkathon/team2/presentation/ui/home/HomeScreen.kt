@@ -275,7 +275,8 @@ fun ProfileItem(
                         2 -> painterResource(R.drawable.gamja2)
                         3 -> painterResource(R.drawable.gamja3)
                         4 -> painterResource(R.drawable.gamja4)
-                        else -> painterResource(R.drawable.img_dummy)
+                        5 -> painterResource(R.drawable.gamja5)
+                        else -> painterResource(R.drawable.gamja5)
                     },
                     contentDescription = "",
                     modifier = Modifier
