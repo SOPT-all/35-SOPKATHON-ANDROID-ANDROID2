@@ -15,7 +15,7 @@ import com.sopkathon.team2.data.service.Service
 import kotlinx.coroutines.launch
 
 class WriteViewModel(
-//    private val imageLocalDataSource: ImageLocalDataSource
+    private val imageLocalDataSource: ImageLocalDataSource,
     private val service: Service = RetrofitInstance.service
 
 ) : ViewModel() {
@@ -61,9 +61,9 @@ class WriteViewModel(
         }
     }
 
-//    fun saveImage() {
-//        imageLocalDataSource.imageUri = imageUri
-//    }
+    fun saveImage() {
+        imageLocalDataSource.imageUri = imageUri
+    }
 
     fun getTextSize() = text.length.toString()
 

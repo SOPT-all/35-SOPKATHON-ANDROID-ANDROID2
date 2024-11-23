@@ -61,6 +61,7 @@ fun WriteScreen(
         contract = ActivityResultContracts.GetContent()
     ) { uri ->
         viewModel.onChangedImage(uri)
+        viewModel.saveImage()
     }
 
     WriteScreenContent(
@@ -183,7 +184,7 @@ fun AddPictureItem(
             painter = rememberAsyncImagePainter(model = imageUri),
             contentDescription = "Selected Image",
             modifier = Modifier
-                .height(207.dp)
+                .height(134.dp)
                 .fillMaxWidth()
                 .background(
                     color = Color.Gray,

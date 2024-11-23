@@ -2,17 +2,23 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.sopkathon.team2.data.datasource.local.ImageLocalDataSource
+import com.sopkathon.team2.data.datasourceimpl.local.ImageLocalDataSourceImpl
 import com.sopkathon.team2.presentation.model.Route
 import com.sopkathon.team2.presentation.ui.home.HomeScreen
 import com.sopkathon.team2.presentation.ui.main.MainNavigator
 import com.sopkathon.team2.presentation.ui.write.WriteScreen
+import com.sopkathon.team2.presentation.ui.write.WriteViewModel
 
 @Composable
 fun MainNavHost(
     navigator: MainNavigator, padding: PaddingValues
 ) {
+    val context = LocalContext.current
+    val dataSource = ImageLocalDataSourceImpl(context=context)
     NavHost(
         navController = navigator.navController,
         startDestination = Route.Home::class.qualifiedName!!
@@ -26,7 +32,7 @@ fun MainNavHost(
 //            ProfileScreen(modifier = Modifier.padding(padding),onNavigateToHome = { navigator.navigate(Route.Home) })
         }
         composable(Route.Write::class.qualifiedName!!) {
-            WriteScreen(modifier = Modifier.padding(padding),onNavigateToComplete = { navigator.navigate(Route.Complete) })
+            WriteScreen(viewModel = WriteViewModel(dataSource),modifier = Modifier.padding(padding),onNavigateToComplete = { navigator.navigate(Route.Complete) })
         }
         composable(Route.Complete::class.qualifiedName!!) {
 //            CompleteScreen(
