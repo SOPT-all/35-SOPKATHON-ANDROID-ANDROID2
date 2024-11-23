@@ -5,6 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -31,9 +32,9 @@ import com.sopkathon.team2.ui.theme.White
 
 @Composable
 fun GamjaJitItem(
-    image: String,
+    image: String?,
     content: String,
-    date: String
+    date: String,
 ) {
     val isExpanded = remember { mutableStateOf(false) }
 
@@ -45,21 +46,22 @@ fun GamjaJitItem(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
+        image?.let {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .aspectRatio(288f / 200f)
+                    .clip(RoundedCornerShape(6.dp))
+            ) {
 
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .aspectRatio(288f / 200f)
-                .clip(RoundedCornerShape(6.dp))
-        ) {
-            AsyncImage(
-                model = image,
-                contentDescription = null,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier.fillMaxSize()
-            )
+                AsyncImage(
+                    model = image,
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier.fillMaxSize()
+                )
+            }
         }
-
 
         Text(
             text = content,
@@ -84,4 +86,5 @@ fun GamjaJitItem(
                 .padding(top = 9.dp)
         )
     }
+    Spacer(modifier = Modifier.padding(bottom = 20.dp))
 }
