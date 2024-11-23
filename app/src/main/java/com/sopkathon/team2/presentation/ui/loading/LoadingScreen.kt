@@ -28,7 +28,7 @@ import org.sopt.and.R
 fun LoadingScreen(
     modifier: Modifier
 ) {
-    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.raw_dummy_lottie))
+    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.stupidpotato))
     Box(
         modifier = modifier
             .fillMaxSize()
@@ -45,7 +45,8 @@ fun LoadingScreen(
             .padding(24.dp)
     ) {
         Column(
-            modifier = modifier.fillMaxSize()
+            modifier = modifier
+                .fillMaxSize()
                 .background(
                     brush = Brush.linearGradient(
                         colorStops = arrayOf(

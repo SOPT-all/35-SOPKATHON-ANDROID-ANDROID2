@@ -20,7 +20,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.sopkathon.team2.presentation.ui.profile.getLevelImage
 import com.sopkathon.team2.ui.theme.GAMJATheme
-import org.sopt.and.R
 
 @Composable
 fun InstagramCard(nickname: String, level: Int, modifier: Modifier = Modifier) {
@@ -49,7 +48,7 @@ fun InstagramCard(nickname: String, level: Int, modifier: Modifier = Modifier) {
             Image(
                 painter = it,
                 contentDescription = null,
-                modifier = modifier
+                modifier = Modifier
                     .fillMaxSize()
                     .background(
                         shape = RoundedCornerShape(bottomStart = 20.dp, bottomEnd = 20.dp),

@@ -156,6 +156,7 @@ fun InstagramShareScreen(
                             } catch (e: Exception) {
                                 Log.e("InstagramShare", "Error during URI creation or sharing", e)
                             }
+                            closeButtonClicked()
                         }
                         Log.d("InstagramShare", "Button clicked")
                     }
