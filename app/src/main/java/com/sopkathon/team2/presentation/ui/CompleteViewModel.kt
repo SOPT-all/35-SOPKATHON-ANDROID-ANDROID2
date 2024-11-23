@@ -1,4 +1,4 @@
-package com.sopkathon.team2.presentation.complete
+package com.sopkathon.team2.presentation.ui
 
 import android.util.Log
 import androidx.lifecycle.ViewModel

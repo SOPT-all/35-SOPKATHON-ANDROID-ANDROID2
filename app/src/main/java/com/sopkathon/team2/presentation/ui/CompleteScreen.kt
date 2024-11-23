@@ -1,4 +1,4 @@
-package com.sopkathon.team2.presentation.complete
+package com.sopkathon.team2.presentation.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
