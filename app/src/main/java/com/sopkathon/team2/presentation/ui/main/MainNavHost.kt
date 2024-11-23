@@ -27,8 +27,10 @@ fun MainNavHost(
     ) {
         composable(Route.Home::class.qualifiedName!!) {
             HomeScreen(modifier = Modifier.padding(padding),
-                onNavigateToProfile = { navigator.navigate(Route.Profile) },
-                onNavigateToWrite = { navigator.navigate(Route.Write) })
+                onNavigateToProfile = { navigator.navigate(Route.Profile(1)) },
+                onNavigateToWrite = { navigator.navigate(Route.Write) },
+                onUserClick = {userId ->  navigator.navigate(Route.Profile(userId = userId)) }
+            )
         }
         composable(Route.Profile::class.qualifiedName!!) {
             ProfileScreen(
