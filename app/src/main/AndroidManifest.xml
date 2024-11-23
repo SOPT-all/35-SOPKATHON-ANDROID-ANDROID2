@@ -16,7 +16,7 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name="com.sopkathon.team2.presentation.main.MainActivity"
+            android:name="com.sopkathon.team2.presentation.ui.main.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.ANDSOPTSOPKATHONTEAM2">

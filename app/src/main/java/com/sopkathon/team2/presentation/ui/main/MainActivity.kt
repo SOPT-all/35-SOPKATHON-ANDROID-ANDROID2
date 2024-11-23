@@ -1,4 +1,4 @@
-package com.sopkathon.team2.presentation.main
+package com.sopkathon.team2.presentation.ui.main
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
