@@ -17,6 +17,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -29,6 +32,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.sopkathon.team2.presentation.ui.bottomsheet.UserBottomSheet
 import com.sopkathon.team2.presentation.ui.home.component.InstagramShareScreen
 import com.sopkathon.team2.presentation.util.noRippleClickable
 import com.sopkathon.team2.presentation.util.roundedBackgroundWithPadding
@@ -44,6 +48,10 @@ fun HomeScreen(
 ) {
     val userInfo by viewModel.userInfo.collectAsState()
     val shareScreenVisible by viewModel.shareScreenVisible.collectAsState()
+
+    var showBottomSheet by remember { mutableStateOf(false) }
+
+
 
     Box(
         modifier = modifier
@@ -86,7 +94,7 @@ fun HomeScreen(
                     imageVector = ImageVector.vectorResource(R.drawable.ic_home_friend_list),
                     contentDescription = null,
                     modifier = Modifier.noRippleClickable {
-                        //TODO: 친구 목록 바텀시트
+                        showBottomSheet = true
                     }
                 )
                 Spacer(modifier = Modifier.width(12.dp))
@@ -147,6 +155,15 @@ fun HomeScreen(
             modifier = Modifier.showIf(shareScreenVisible),
             closeButtonClicked = { viewModel.changeShareScreenVisible() })
 
+    }
+
+    if (showBottomSheet) {
+        UserBottomSheet(
+            onDismissRequest = {
+                showBottomSheet = false
+            },
+            onUserClick = {}
+        )
     }
 
 }
