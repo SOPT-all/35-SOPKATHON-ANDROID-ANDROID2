@@ -1,11 +1,12 @@
 package com.sopkathon.team2.data.service
 
-import com.sopkathon.team2.data.model.response.ResponseContentDto
 import com.sopkathon.team2.data.model.response.ResponseDummyDto
+import com.sopkathon.team2.data.model.response.ResponseUserDto
+import retrofit2.Response
+import retrofit2.http.GET
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
-import retrofit2.http.Path
 
 interface Service {
     @POST("/dummy")
@@ -16,4 +17,7 @@ interface Service {
         @Path("userId") userId: Int,
         @Body content: String
     ): ResponseContentDto
+
+    @GET("/user/{1}")
+    fun getUserById(userId: Long): Response<ResponseUserDto>
 }
