@@ -41,7 +41,7 @@ fun getLevelImage(level: Int): Int {
 }
 
 @Composable
-fun ProfileScreen(userId: Long) {
+fun ProfileScreen(modifier: Modifier = Modifier, onNavigateToHome: () -> Unit, userId: Long) {
     val profileViewModel: ProfileViewModel = viewModel()
     val response by profileViewModel.response.collectAsState()
 
