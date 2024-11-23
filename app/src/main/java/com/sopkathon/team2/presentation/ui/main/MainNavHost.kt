@@ -17,7 +17,9 @@ import com.sopkathon.team2.presentation.ui.write.WriteViewModel
 
 @Composable
 fun MainNavHost(
-    navigator: MainNavigator, padding: PaddingValues
+    viewModel: InstagramShareViewModel,
+    navigator: MainNavigator, padding: PaddingValues,
+    shareClicked: () -> Unit = {}
 ) {
     val context = LocalContext.current
     val dataSource = ImageLocalDataSourceImpl(context=context)
@@ -26,11 +28,12 @@ fun MainNavHost(
         startDestination = Route.Home::class.qualifiedName!!
     ) {
         composable(Route.Home::class.qualifiedName!!) {
-            HomeScreen(
+            HomeScreen(instaViewModel = viewModel,
                 modifier = Modifier.padding(padding),
                 onNavigateToProfile = { userId -> navigator.navigate(Route.Profile(userId = userId)) },
                 onNavigateToWrite = { navigator.navigate(Route.Write) },
-                onUserClick = { userId ->  navigator.navigate(Route.Profile(userId = userId)) }
+                onUserClick = { userId ->  navigator.navigate(Route.Profile(userId = userId)) },
+                shareClicked = { shareClicked() }
             )
         }
         composable(Route.Profile::class.qualifiedName!!) {

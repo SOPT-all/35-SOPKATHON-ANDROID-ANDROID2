@@ -92,4 +92,10 @@ dependencies {
 
     // Lottie
     implementation(libs.lottie.compose)
+    // Capture
+    implementation(libs.capturable)
+
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+
+
 }
