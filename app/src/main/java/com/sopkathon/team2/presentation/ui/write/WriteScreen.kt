@@ -81,7 +81,8 @@ fun WriteScreen(
                 onChangedTextField = { viewModel.onChangedTextField(it) },
                 textSize = viewModel.getTextSize(),
                 imageUri = imageUri,
-                onClick = { launcher.launch("image/*") }
+                onClick = { launcher.launch("image/*") },
+                onCompleteClick = { }
             )
         }
     )
@@ -94,7 +95,8 @@ private fun WriteScreenContent(
     onChangedTextField: (String) -> Unit,
     textSize: String,
     imageUri: Uri?,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    onCompleteClick: () -> Unit
 ) {
     Column(
         modifier = modifier
@@ -126,7 +128,7 @@ private fun WriteScreenContent(
         Spacer(modifier = Modifier.height(133.dp))
 
         WriteBottomBar(
-            onClick = {}
+            onClick = onCompleteClick
         )
     }
 
