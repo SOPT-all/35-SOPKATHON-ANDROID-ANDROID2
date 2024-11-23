@@ -28,7 +28,7 @@ class HomeViewModel : ViewModel() {
                 if (response.isSuccessful) {
                     val responseBody = response.body()
                     if (responseBody != null) {
-                        _userInfo.value = responseBody.data // `data` 내부 값을 Flow에 전달
+                        _userInfo.value = responseBody.data
                         _error.value = null
                     } else {
                         _error.value = "Response body is null"

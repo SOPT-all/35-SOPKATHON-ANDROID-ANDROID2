@@ -25,7 +25,6 @@ class MainNavigator(
             else -> null
         }
 
-    // 기본 네비게이션
     fun navigate(route: Route) {
         val navOptions = navOptions {
             popUpTo(0) {
@@ -37,10 +36,9 @@ class MainNavigator(
         navController.navigate(route::class.qualifiedName ?: "", navOptions)
     }
 
-    // 스택을 모두 지우고 특정 화면으로 이동
     fun navigateAndClearStack(route: Route) {
         val navOptions = navOptions {
-            popUpTo(Route.Home::class.qualifiedName!!) { inclusive = true } // Home 포함해서 스택 초기화
+            popUpTo(Route.Home::class.qualifiedName!!) { inclusive = true }
             launchSingleTop = true
         }
         navController.navigate(route::class.qualifiedName ?: "", navOptions)
