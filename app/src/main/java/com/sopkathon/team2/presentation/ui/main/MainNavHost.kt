@@ -26,17 +26,18 @@ fun MainNavHost(
         startDestination = Route.Home::class.qualifiedName!!
     ) {
         composable(Route.Home::class.qualifiedName!!) {
-            HomeScreen(modifier = Modifier.padding(padding),
-                onNavigateToProfile = { navigator.navigate(Route.Profile(1)) },
+            HomeScreen(
+                modifier = Modifier.padding(padding),
+                onNavigateToProfile = { userId -> navigator.navigate(Route.Profile(userId = userId)) },
                 onNavigateToWrite = { navigator.navigate(Route.Write) },
-                onUserClick = {userId ->  navigator.navigate(Route.Profile(userId = userId)) }
+                onUserClick = { userId ->  navigator.navigate(Route.Profile(userId = userId)) }
             )
         }
         composable(Route.Profile::class.qualifiedName!!) {
             ProfileScreen(
                 modifier = Modifier.padding(padding),
                 onNavigateToHome = { navigator.navigate(Route.Home) },
-                userId = 1
+                userId = 2
             )
         }
         composable(Route.Write::class.qualifiedName!!) {

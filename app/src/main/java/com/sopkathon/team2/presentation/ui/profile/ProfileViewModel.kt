@@ -17,6 +17,8 @@ import retrofit2.Response
 class ProfileViewModel : ViewModel() {
     private val service = RetrofitInstance.service
 
+
+
     private val _response = MutableStateFlow<Response<ResponseProfileDto>?>(null)
     val response: StateFlow<Response<ResponseProfileDto>?> get() = _response
 

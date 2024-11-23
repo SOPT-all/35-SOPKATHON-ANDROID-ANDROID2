@@ -61,7 +61,7 @@ import org.sopt.and.R
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier, viewModel: HomeViewModel = viewModel(),
-    onNavigateToProfile: () -> Unit = {},
+    onNavigateToProfile: (Int) -> Unit = {},
     onNavigateToWrite: () -> Unit = {},
     onUserClick: (Int) -> Unit = {},
 ) {
@@ -108,7 +108,7 @@ fun HomeScreen(
                     imageVector = ImageVector.vectorResource(R.drawable.ic_home_history),
                     contentDescription = null,
                     modifier = Modifier.noRippleClickable {
-                        onNavigateToProfile()
+                        onNavigateToProfile(1)
                     }
                 )
 

@@ -1,5 +1,7 @@
 package com.sopkathon.team2.presentation.ui.profile
 
+import android.provider.ContactsContract.CommonDataKinds.Nickname
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -47,9 +49,13 @@ fun getLevelImage(level: Int): Int {
 fun ProfileScreen(modifier: Modifier = Modifier, onNavigateToHome: () -> Unit, userId: Long) {
     val profileViewModel: ProfileViewModel = viewModel()
     val response by profileViewModel.response.collectAsState()
+    val userResponse by profileViewModel.userResponse.collectAsState()
 
     LaunchedEffect(Unit) {
+        Log.e("ㅋㅋ", userId.toString())
+
         profileViewModel.loadProfiles(userId)
+        profileViewModel.loadUser(userId)
     }
 
     if (response == null) {
@@ -60,7 +66,7 @@ fun ProfileScreen(modifier: Modifier = Modifier, onNavigateToHome: () -> Unit, u
                 if (userId == 1L) {
                     MyViewScreen(response!!.body())
                 } else {
-                    FriendViewScreen(response!!.body(), level = 1)
+                    FriendViewScreen(response!!.body(), level = userResponse!!.body()?.data!!.level, nickname =userResponse!!.body()?.data!!.nickName )
                 }
             }
 
@@ -69,6 +75,8 @@ fun ProfileScreen(modifier: Modifier = Modifier, onNavigateToHome: () -> Unit, u
             }
         }
     }
+
+
 
 }
 
@@ -111,7 +119,7 @@ fun MyViewScreen(data: ResponseProfileDto?) {
 }
 
 @Composable
-fun FriendViewScreen(data: ResponseProfileDto?, level: Int) {
+fun FriendViewScreen(data: ResponseProfileDto?, level: Int,nickname: String) {
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
@@ -133,7 +141,7 @@ fun FriendViewScreen(data: ResponseProfileDto?, level: Int) {
                 modifier = Modifier.padding(top = 94.dp)
             ) {
                 Text(
-                    text = "나는야감자" + "님",
+                    text = "$nickname 님",
                     color = White,
                     style = GAMJATheme.typography.headRegular26,
                 )
