@@ -5,19 +5,30 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import com.sopkathon.team2.data.datasource.local.ImageLocalDataSource
 
-class WriteViewModel : ViewModel() {
+class WriteViewModel(
+//    private val imageLocalDataSource: ImageLocalDataSource
+) : ViewModel() {
 
     var text by mutableStateOf("")
+        private set
+
+    var imageUri by mutableStateOf<Uri?>(null)
         private set
 
     fun onChangedTextField(newText: String) {
         text = newText
     }
 
-    fun getTextSize() = text.length.toString()
+    fun onChangedImage(image: Uri?) {
+        imageUri = image
+    }
 
-    var image by mutableStateOf<Uri?>(null)
-        private set
+//    fun saveImage() {
+//        imageLocalDataSource.imageUri = imageUri
+//    }
+
+    fun getTextSize() = text.length.toString()
 
 }
