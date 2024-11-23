@@ -24,6 +24,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
@@ -35,6 +36,7 @@ import com.sopkathon.team2.ui.theme.Main
 import com.sopkathon.team2.ui.theme.Sub
 import com.sopkathon.team2.ui.theme.White
 import com.sopkathon.team2.ui.theme.defaultGAMJATypography
+import org.sopt.and.R
 
 @Composable
 fun CompleteScreen(
@@ -127,9 +129,9 @@ fun CompleteCard(
             .background(Gray10)
     ) {
         Image(
-            painter = rememberAsyncImagePainter(model = uri),
+            painter = painterResource(R.drawable.gamja1_crop),
             contentDescription = "",
-            contentScale = ContentScale.FillWidth,
+            contentScale = ContentScale.Fit,
             modifier = Modifier.fillMaxWidth()
                 .aspectRatio(2.4f)
         )
