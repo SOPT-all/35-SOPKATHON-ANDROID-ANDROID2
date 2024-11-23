@@ -10,7 +10,6 @@ import androidx.core.view.drawToBitmap
 import androidx.lifecycle.ViewModel
 import com.sopkathon.team2.presentation.ui.home.component.InstagramCard
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
 import java.io.File
@@ -18,41 +17,28 @@ import java.io.FileOutputStream
 
 class InstagramShareViewModel : ViewModel() {
 
-    @OptIn(ExperimentalCoroutinesApi::class)
-    suspend fun captureInstagramCardBitmap(context: Context): Bitmap {
+
+    suspend fun captureInstagramCardBitmap(nickname: String, level: Int, context: Context): Bitmap {
         Log.d("InstagramShare", "Entered captureInstagramCardBitmap")
         return withContext(Dispatchers.Main) {
-            suspendCancellableCoroutine { continuation ->
-                val composeView = ComposeView(context).apply {
-                    setContent {
-                        InstagramCard()
-                    }
+            val composeView = ComposeView(context).apply {
+                setContent {
+                    InstagramCard(
+                        nickname = nickname,
+                        level = level
+                    )
                 }
-                Log.d("InstagramShare", "ComposeView created")
+            }
+            Log.d("InstagramShare", "ComposeView created")
 
-                val frameLayout = FrameLayout(context).apply {
-                    addView(composeView)
-                }
-                Log.d("InstagramShare", "FrameLayout created and ComposeView added")
+            val frameLayout = FrameLayout(context).apply {
+                addView(composeView)
+            }
+            Log.d("InstagramShare", "FrameLayout created and ComposeView added")
 
-                frameLayout.viewTreeObserver.addOnGlobalLayoutListener {
-                    Log.d("InstagramShare", "onGlobalLayoutListener triggered")
-                    try {
-                        val bitmap = composeView.drawToBitmap()
-                        Log.d("InstagramShare", "Bitmap captured successfully via GlobalLayout")
-                        continuation.resume(bitmap) {}
-                    } catch (e: Exception) {
-                        Log.d(
-                            "InstagramShare",
-                            "Error capturing bitmap via GlobalLayout: ${e.message}"
-                        )
-                        continuation.resumeWith(Result.failure(e))
-                    }
-                }
-                Log.d("InstagramShare", "onGlobalLayoutListener attached")
-
+            // `post`를 사용해 캡처 시점 조정
+            return@withContext suspendCancellableCoroutine { continuation ->
                 frameLayout.post {
-                    Log.d("InstagramShare", "Post triggered for manual layout")
                     try {
                         frameLayout.measure(
                             FrameLayout.LayoutParams.WRAP_CONTENT,
@@ -80,6 +66,7 @@ class InstagramShareViewModel : ViewModel() {
             }
         }
     }
+
 
     suspend fun shareToInstagramStory(context: Context, bitmap: Bitmap) {
         Log.d("InstagramShare", "Entered shareToInstagramStory")

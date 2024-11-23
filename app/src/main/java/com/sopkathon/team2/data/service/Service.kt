@@ -13,9 +13,9 @@ interface Service {
     @POST("/dummy")
     suspend fun loadPotatoes(id: Int): List<ResponseDummyDto>
 
-    @GET("/user/{1}")
-    fun getUserById(userId: Long): Response<ResponseUserDto>
-
     @GET("/board/{boardId}")
     suspend fun getPotatoById(@Path("boardId") boardId: Long): Response<ResponseWrapper<ResponsePotatoDto>>
+
+    @GET("/user/{userId}")
+    suspend fun getUserById(@Path("userId") userId: Long): Response<ResponseWrapper<ResponseUserDto>>
 }
