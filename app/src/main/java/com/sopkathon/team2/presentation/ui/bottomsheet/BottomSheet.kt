@@ -26,8 +26,10 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -114,10 +116,10 @@ fun ProfileItem(
             ) {
                 Image(
                     painter = when (user.level) {
-                        1 -> painterResource(R.drawable.img_dummy)
-                        2 -> painterResource(R.drawable.img_dummy)
-                        3 -> painterResource(R.drawable.img_dummy)
-                        4 -> painterResource(R.drawable.img_dummy)
+                        1 -> painterResource(R.drawable.gamja1)
+                        2 -> painterResource(R.drawable.gamja2)
+                        3 -> painterResource(R.drawable.gamja3)
+                        4 -> painterResource(R.drawable.gamja4)
                         else -> painterResource(R.drawable.img_dummy)
                     },
                     contentDescription = "",
@@ -142,7 +144,7 @@ fun ProfileItem(
             }
 
             Icon(
-                Icons.Default.PlayArrow,
+                imageVector = ImageVector.vectorResource(R.drawable.ic_arrow),
                 contentDescription = "",
             )
         }
