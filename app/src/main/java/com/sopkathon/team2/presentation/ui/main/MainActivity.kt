@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
+import com.sopkathon.team2.presentation.complete.CompleteScreen
+import com.sopkathon.team2.presentation.loading.LoadingScreen
 import com.sopkathon.team2.presentation.ui.home.HomeScreen
 import com.sopkathon.team2.ui.theme.ANDSOPTSOPKATHONTEAM2Theme
 
@@ -18,7 +20,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             ANDSOPTSOPKATHONTEAM2Theme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    HomeScreen(modifier = Modifier.padding(innerPadding))
+                    CompleteScreen(modifier = Modifier.padding(innerPadding))
                 }
             }
         }

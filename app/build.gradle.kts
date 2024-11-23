@@ -90,4 +90,6 @@ dependencies {
     implementation(libs.converter.gson)
     implementation(libs.coil.compose)
 
+    // Lottie
+    implementation (libs.lottie.compose)
 }
