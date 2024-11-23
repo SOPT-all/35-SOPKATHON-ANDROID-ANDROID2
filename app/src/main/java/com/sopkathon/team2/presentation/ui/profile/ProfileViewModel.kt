@@ -4,6 +4,8 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sopkathon.team2.data.model.response.ResponseProfileDto
+import com.sopkathon.team2.data.model.response.ResponseUserDto
+import com.sopkathon.team2.data.model.response.ResponseWrapper
 import com.sopkathon.team2.data.service.RetrofitInstance
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,6 +20,9 @@ class ProfileViewModel : ViewModel() {
     private val _response = MutableStateFlow<Response<ResponseProfileDto>?>(null)
     val response: StateFlow<Response<ResponseProfileDto>?> get() = _response
 
+    private val _userResponse = MutableStateFlow<Response<ResponseWrapper<ResponseUserDto>>?>(null)
+    val userResponse: StateFlow<Response<ResponseWrapper<ResponseUserDto>>?> get() = _userResponse
+
     fun loadProfiles(userId: Long) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
@@ -27,6 +32,19 @@ class ProfileViewModel : ViewModel() {
             } catch (e: Exception) {
                 e.printStackTrace()
                 _response.value = null
+                Log.d("Profile", e.toString())
+            }
+        }
+    }
+
+    fun loadUser(userId: Long){
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val result = service.getUserById(userId)
+                _userResponse.value=result
+            }catch (e: Exception) {
+                e.printStackTrace()
+                _userResponse.value = null
                 Log.d("Profile", e.toString())
             }
         }

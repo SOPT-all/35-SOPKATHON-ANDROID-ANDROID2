@@ -16,6 +16,8 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -74,7 +76,14 @@ fun ProfileScreen(modifier: Modifier = Modifier, onNavigateToHome: () -> Unit, u
 fun MyViewScreen(data: ResponseProfileDto?) {
     Column(
         modifier = Modifier
-            .background(color = Gray11)
+            .background(
+                brush = Brush.linearGradient(
+                    colorStops = arrayOf(
+                        0.15f to Color(0xFF121413),
+                        1.0f to Color(0xFF241705)
+                    )
+                )
+            )
             .fillMaxSize(),
     ) {
         Text(
@@ -105,8 +114,15 @@ fun MyViewScreen(data: ResponseProfileDto?) {
 fun FriendViewScreen(data: ResponseProfileDto?, level: Int) {
     LazyColumn(
         modifier = Modifier
-            .background(color = Gray11)
-            .fillMaxSize(),
+            .fillMaxSize()
+            .background(
+                brush = Brush.linearGradient(
+                    colorStops = arrayOf(
+                        0.15f to Color(0xFF121413),
+                        1.0f to Color(0xFF241705)
+                    )
+                )
+            ),
         contentPadding = PaddingValues(bottom = 20.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
