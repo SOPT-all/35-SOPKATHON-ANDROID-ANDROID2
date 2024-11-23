@@ -28,7 +28,7 @@ import org.sopt.and.R
 fun LoadingScreen(
     modifier: Modifier
 ) {
-    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.raw_dummy_lottie))
+    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.stupidpotato))
     Box(
         modifier = modifier
             .fillMaxSize()

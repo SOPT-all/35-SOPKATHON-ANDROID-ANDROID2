@@ -13,6 +13,9 @@ import com.sopkathon.team2.data.datasource.local.ImageLocalDataSource
 import com.sopkathon.team2.data.model.request.RequestContentDto
 import com.sopkathon.team2.data.service.RetrofitInstance
 import com.sopkathon.team2.data.service.Service
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class WriteViewModel(
@@ -21,6 +24,8 @@ class WriteViewModel(
 
 ) : ViewModel() {
 
+    private var _isLoading = MutableStateFlow(false)
+    val isLoading: StateFlow<Boolean> = _isLoading
     var text by mutableStateOf("")
         private set
 
@@ -38,11 +43,14 @@ class WriteViewModel(
         imageUri = image
     }
 
-    fun postContent() {
+
+
+    fun postContent(onComplete: () -> Unit) {
 
         viewModelScope.launch {
+            _isLoading.value = true
+            val startTime = System.currentTimeMillis()
             try {
-
                 val response = service.postContent(userId = 1, requestContentDto = RequestContentDto(text))
 
                 if (response.isSuccessful) {
@@ -59,6 +67,14 @@ class WriteViewModel(
                 }
             } catch (e: Exception) {
                 Log.d("ㅋㅋ", "User Info Fetched: ${e.message}")
+            } finally {
+                val elapsedTime = System.currentTimeMillis() - startTime
+                val remainingTime = 2000L - elapsedTime
+                if (remainingTime > 0) {
+                    delay(remainingTime)
+                }
+                _isLoading.value = false // 로딩 종료
+                onComplete() // 완료 콜백 호출
             }
         }
     }

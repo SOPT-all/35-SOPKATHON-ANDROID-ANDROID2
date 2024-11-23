@@ -1,6 +1,7 @@
 package com.sopkathon.team2.presentation.ui.write
 
 import android.net.Uri
+import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
@@ -23,6 +24,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -45,7 +48,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.rememberAsyncImagePainter
+import com.sopkathon.team2.presentation.ui.loading.LoadingScreen
 import com.sopkathon.team2.ui.theme.GAMJATheme
+import kotlinx.coroutines.delay
 import org.sopt.and.R
 
 @Composable
@@ -57,36 +62,56 @@ fun WriteScreen(
     val text = viewModel.text
     val imageUri = viewModel.imageUri
 
+    val isLoading by viewModel.isLoading.collectAsState()
+
+
     val launcher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetContent()
     ) { uri ->
         viewModel.onChangedImage(uri)
         viewModel.saveImage()
     }
-
-    WriteScreenContent(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(
-                brush = Brush.linearGradient(
-                    colorStops = arrayOf(
-                        0.15f to Color(0xFF121413),
-                        1.0f to Color(0xFF241705)
-                    ),
-                    start = Offset(0f, 0f),
-                    end = Offset(1000f, 1000f)
-                )
-            ),
-        text = text,
-        onChangedTextField = { viewModel.onChangedTextField(it) },
-        textSize = viewModel.getTextSize(),
-        imageUri = imageUri,
-        onClick = { launcher.launch("image/*") },
-        onCompleteClick = {
-            viewModel.postContent()
-            onNavigateToComplete()
+    var localIsLoading by remember { mutableStateOf(false) }
+    // 로딩 상태 변경 시 최소 2초 유지
+    LaunchedEffect(isLoading) {
+        if (isLoading) {
+            localIsLoading = true // 로딩 시작
+            delay(2000) // 최소 2초 대기
+            if (!viewModel.isLoading.value) { // 실제 로딩이 종료되었으면 로딩 끝
+                localIsLoading = false
+            }
+        } else {
+            localIsLoading = false // 로딩 종료
         }
-    )
+    }
+
+    if (localIsLoading) {
+        LoadingScreen(modifier)
+        Log.d("ㅋㅋ", "1121")
+    } else {
+        WriteScreenContent(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(
+                    brush = Brush.linearGradient(
+                        colorStops = arrayOf(
+                            0.15f to Color(0xFF121413),
+                            1.0f to Color(0xFF241705)
+                        ),
+                        start = Offset(0f, 0f),
+                        end = Offset(1000f, 1000f)
+                    )
+                ),
+            text = text,
+            onChangedTextField = { viewModel.onChangedTextField(it) },
+            textSize = viewModel.getTextSize(),
+            imageUri = imageUri,
+            onClick = { launcher.launch("image/*") },
+            onCompleteClick = {
+                viewModel.postContent(onComplete = onNavigateToComplete)
+            }
+        )
+    }
 }
 
 @Composable
