@@ -34,6 +34,7 @@ fun getLevelImage(level: Int): Int {
         2 -> R.drawable.gamja2
         3 -> R.drawable.gamja3
         4 -> R.drawable.gamja4
+        5-> R.drawable.gamja5
         else -> {
             R.drawable.img_dummy
         }
