@@ -21,6 +21,9 @@ val Gray09 = Color(0xFF3C3C40)
 val Gray10 = Color(0xFF252528)
 val Gray11 = Color(0xFF121413)
 
+val Main = Color(0xFFFFCC64)
+
+
 // Alert
 val Red = Color(0xFFFF5757)
 
@@ -40,6 +43,9 @@ data class GAMJAColors(
     val gray09: Color,
     val gray10: Color,
     val gray11: Color,
+
+    val main: Color,
+
     // Alert
     val red: Color,
 )
@@ -60,6 +66,8 @@ val defaultGAMJAColors =
         gray09 = Gray09,
         gray10 = Gray10,
         gray11 = Gray11,
+
+        main = Main,
         // Alert
         red = Red
     )
