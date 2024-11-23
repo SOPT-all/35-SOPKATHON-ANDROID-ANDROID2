@@ -1,4 +1,4 @@
-package com.sopkathon.team2
+package com.sopkathon.team2.presentation.main
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -20,28 +20,11 @@ class MainActivity : ComponentActivity() {
         setContent {
             ANDSOPTSOPKATHONTEAM2Theme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
+                    MainScreen(
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    ANDSOPTSOPKATHONTEAM2Theme {
-        Greeting("Android")
     }
 }
