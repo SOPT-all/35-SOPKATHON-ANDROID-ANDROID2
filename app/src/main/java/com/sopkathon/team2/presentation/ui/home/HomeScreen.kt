@@ -1,4 +1,4 @@
-package com.sopkathon.team2.presentation.home
+package com.sopkathon.team2.presentation.ui.home
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
