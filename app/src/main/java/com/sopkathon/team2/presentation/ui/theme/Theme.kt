@@ -1,4 +1,4 @@
-package com.sopkathon.team2.ui.theme
+package com.sopkathon.team2.presentation.ui.theme
 
 import android.app.Activity
 import android.os.Build
