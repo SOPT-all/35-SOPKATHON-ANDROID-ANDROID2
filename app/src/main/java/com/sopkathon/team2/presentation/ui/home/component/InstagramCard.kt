@@ -1,6 +1,5 @@
 package com.sopkathon.team2.presentation.ui.home.component
 
-import android.provider.ContactsContract.CommonDataKinds.Nickname
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -21,7 +20,7 @@ import com.sopkathon.team2.ui.theme.GAMJATheme
 import org.sopt.and.R
 
 @Composable
-fun InstagramCard(nickname: String,level:Int,modifier: Modifier = Modifier) {
+fun InstagramCard(nickname: String, level: Int, modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -44,9 +43,12 @@ fun InstagramCard(nickname: String,level:Int,modifier: Modifier = Modifier) {
         Image(
             painter = painterResource(R.drawable.img_dummy),
             contentDescription = null,
-            modifier = modifier
+            modifier = Modifier
                 .fillMaxSize()
-                .background(shape = RoundedCornerShape(bottomStart = 20.dp, bottomEnd = 20.dp),color = Color(0xFF252528))
+                .background(
+                    shape = RoundedCornerShape(bottomStart = 20.dp, bottomEnd = 20.dp),
+                    color = Color(0xFF252528)
+                )
 
         )
 
@@ -56,5 +58,5 @@ fun InstagramCard(nickname: String,level:Int,modifier: Modifier = Modifier) {
 @Preview
 @Composable
 private fun InstagramCardPreview() {
-    InstagramCard("김감자",1)
+    InstagramCard("김감자", 1)
 }

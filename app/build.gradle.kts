@@ -90,4 +90,10 @@ dependencies {
     implementation(libs.converter.gson)
     implementation(libs.coil.compose)
 
+    // Capture
+    implementation(libs.capturable)
+
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+
+
 }

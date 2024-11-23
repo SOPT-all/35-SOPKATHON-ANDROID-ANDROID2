@@ -10,16 +10,22 @@ import com.sopkathon.team2.presentation.ui.main.MainNavigator
 
 @Composable
 fun MainNavHost(
-    navigator: MainNavigator, padding: PaddingValues
+    viewModel: InstagramShareViewModel,
+    navigator: MainNavigator, padding: PaddingValues,
+    shareClicked: () -> Unit = {}
 ) {
     NavHost(
         navController = navigator.navController,
         startDestination = Route.Home::class.qualifiedName!!
     ) {
         composable(Route.Home::class.qualifiedName!!) {
-            HomeScreen(modifier = Modifier.padding(padding),
+            HomeScreen(instaViewModel = viewModel,
+                modifier = Modifier.padding(padding),
                 onNavigateToProfile = { navigator.navigate(Route.Profile) },
-                onNavigateToWrite = { navigator.navigate(Route.Write) })
+                onNavigateToWrite = { navigator.navigate(Route.Write) },
+                shareClicked = { shareClicked() }
+            )
+
         }
         composable(Route.Profile::class.qualifiedName!!) {
 //            ProfileScreen(modifier = Modifier.padding(padding),onNavigateToHome = { navigator.navigate(Route.Home) })
