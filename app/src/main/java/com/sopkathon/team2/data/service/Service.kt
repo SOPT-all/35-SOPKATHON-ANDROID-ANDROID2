@@ -4,8 +4,6 @@ import com.sopkathon.team2.data.model.response.ResponseDummyDto
 import com.sopkathon.team2.data.model.response.ResponseUserDto
 import retrofit2.Response
 import retrofit2.http.GET
-import retrofit2.http.Body
-import retrofit2.http.GET
 import retrofit2.http.POST
 
 interface Service {
@@ -20,4 +18,6 @@ interface Service {
 
     @GET("/user/{1}")
     fun getUserById(userId: Long): Response<ResponseUserDto>
+    @GET("/user/{userId}")
+    suspend fun getUserById(@Path("userId") userId: Long): Response<ResponseWrapper<ResponseUserDto>>
 }
