@@ -15,9 +15,13 @@ class ImageLocalDataSourceImpl(
     override var imageUri: Uri?
         get() = sharedPreferences.getString(IMAGE, null)?.let { Uri.parse(it) }
         set(value) = sharedPreferences.edit { putString(IMAGE, value.toString()) }
+    override var boardId: Int?
+        get() = sharedPreferences.getInt(BOARD_ID, 1)
+        set(value) = sharedPreferences.edit { putInt(BOARD_ID, value ?: 1)}
 
     companion object {
         private const val PREFERENCES_NAME = "image_preferences"
         private const val IMAGE = "image"
+        private const val BOARD_ID = "board"
     }
 }

@@ -5,5 +5,6 @@ import android.net.Uri
 interface ImageLocalDataSource {
 
     var imageUri: Uri?
+    var boardId: Int?
 
 }

@@ -3,6 +3,7 @@ package com.sopkathon.team2.presentation.ui.write
 import android.net.Uri
 import android.util.Log
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
@@ -30,7 +31,7 @@ class WriteViewModel(
         text = newText
     }
 
-    var boardId by mutableStateOf("")
+    var boardId by mutableIntStateOf(0)
         private set
 
     fun onChangedImage(image: Uri?) {
@@ -47,7 +48,8 @@ class WriteViewModel(
                 if (response.isSuccessful) {
                     val responseBody = response.body()
                     if (responseBody != null) {
-                        boardId = responseBody.data.boardId.toString()
+                        boardId = responseBody.data.boardId
+                        imageLocalDataSource.boardId = boardId
                     } else {
                         Log.d("ㅋㅋ", "Error: Response body is null")
                     }

@@ -12,13 +12,3 @@ data class ResponsePotatoDto(
     @SerialName("image")
     val image: String,
 )
-
-@Serializable
-data class ResponseWrapper<T>(
-    @SerialName("status")
-    val status: Int,
-    @SerialName("message")
-    val message: String,
-    @SerialName("data")
-    val data: T
-)

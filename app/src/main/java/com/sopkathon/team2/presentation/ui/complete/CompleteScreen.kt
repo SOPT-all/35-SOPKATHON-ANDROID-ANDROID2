@@ -1,5 +1,6 @@
 package com.sopkathon.team2.presentation.ui.complete
 
+import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -14,7 +15,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -24,10 +24,9 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import coil.compose.rememberAsyncImagePainter
 import com.sopkathon.team2.presentation.util.noRippleClickable
 import com.sopkathon.team2.ui.theme.Black
 import com.sopkathon.team2.ui.theme.Gray09
@@ -36,19 +35,16 @@ import com.sopkathon.team2.ui.theme.Main
 import com.sopkathon.team2.ui.theme.Sub
 import com.sopkathon.team2.ui.theme.White
 import com.sopkathon.team2.ui.theme.defaultGAMJATypography
-import org.sopt.and.R
 
 @Composable
 fun CompleteScreen(
-    onNavigationToHome: () -> Unit = {},
+    onNavigateToHome: () -> Unit,
+    viewModel: CompleteViewModel,
     modifier: Modifier = Modifier,
-    viewModel: CompleteViewModel = viewModel()
 ) {
-    LaunchedEffect(true) {
-        viewModel.getPotatoInfo(1)
-    }
 
     val potato by viewModel.potato.collectAsState()
+    val uri by viewModel.uri.collectAsState()
     Box(
         modifier = modifier
             .fillMaxSize()
@@ -71,7 +67,10 @@ fun CompleteScreen(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            CompleteCard(potato?.data?.content.orEmpty())
+            CompleteCard(
+                content = potato?.data?.content.orEmpty(),
+                uri = uri ?: Uri.parse("")
+            )
         }
 
         Box(
@@ -93,7 +92,7 @@ fun CompleteScreen(
                         .weight(1f)
                         .clip(RoundedCornerShape(6.dp))
                         .background(Sub)
-                        .noRippleClickable { }
+                        .noRippleClickable(onNavigateToHome)
                         .padding(vertical = 11.5.dp),
                     color = Gray09,
                     style = defaultGAMJATypography.bodyMedium16
@@ -106,7 +105,7 @@ fun CompleteScreen(
                         .weight(1f)
                         .clip(RoundedCornerShape(6.dp))
                         .background(Main)
-                        .noRippleClickable(onNavigationToHome)
+                        .noRippleClickable(onNavigateToHome)
                         .padding(vertical = 11.5.dp),
                     color = Black,
                     style = defaultGAMJATypography.bodyMedium16
@@ -120,14 +119,15 @@ fun CompleteScreen(
 
 @Composable
 fun CompleteCard(
-    content : String,
+    content: String,
+    uri: Uri,
 ) {
     Column(
         modifier = Modifier.fillMaxWidth()
             .background(Gray10)
     ) {
         Image(
-            painter = painterResource(R.drawable.ic_launcher_background),
+            painter = rememberAsyncImagePainter(model = uri),
             contentDescription = "",
             contentScale = ContentScale.FillWidth,
             modifier = Modifier.fillMaxWidth()
@@ -139,7 +139,7 @@ fun CompleteCard(
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             Image(
-                painter = painterResource(R.drawable.ic_launcher_background),
+                painter = rememberAsyncImagePainter(model = uri),
                 contentDescription = "",
                 contentScale = ContentScale.Crop,
                 modifier = Modifier

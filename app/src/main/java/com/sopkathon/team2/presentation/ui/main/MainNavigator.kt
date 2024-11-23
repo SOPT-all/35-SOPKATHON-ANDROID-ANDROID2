@@ -26,13 +26,7 @@ class MainNavigator(
         }
 
     fun navigate(route: Route) {
-        val navOptions = navOptions {
-            popUpTo(0) {
-                saveState = true
-            }
-            launchSingleTop = true
-            restoreState = true
-        }
+        val navOptions = navOptions {}
         navController.navigate(route::class.qualifiedName ?: "", navOptions)
     }
 
