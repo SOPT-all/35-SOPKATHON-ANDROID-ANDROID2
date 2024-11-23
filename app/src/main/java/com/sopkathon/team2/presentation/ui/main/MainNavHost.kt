@@ -5,11 +5,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.sopkathon.team2.data.datasource.local.ImageLocalDataSource
 import com.sopkathon.team2.data.datasourceimpl.local.ImageLocalDataSourceImpl
 import com.sopkathon.team2.presentation.model.Route
+import com.sopkathon.team2.presentation.ui.complete.CompleteScreen
+import com.sopkathon.team2.presentation.ui.complete.CompleteViewModel
 import com.sopkathon.team2.presentation.ui.home.HomeScreen
 import com.sopkathon.team2.presentation.ui.main.MainNavigator
+import com.sopkathon.team2.presentation.ui.profile.ProfileScreen
 import com.sopkathon.team2.presentation.ui.write.WriteScreen
 import com.sopkathon.team2.presentation.ui.write.WriteViewModel
 
@@ -29,15 +31,20 @@ fun MainNavHost(
                 onNavigateToWrite = { navigator.navigate(Route.Write) })
         }
         composable(Route.Profile::class.qualifiedName!!) {
-//            ProfileScreen(modifier = Modifier.padding(padding),onNavigateToHome = { navigator.navigate(Route.Home) })
+            ProfileScreen(
+                modifier = Modifier.padding(padding),
+                onNavigateToHome = { navigator.navigate(Route.Home) },
+                userId = 1
+            )
         }
         composable(Route.Write::class.qualifiedName!!) {
             WriteScreen(viewModel = WriteViewModel(dataSource),modifier = Modifier.padding(padding),onNavigateToComplete = { navigator.navigate(Route.Complete) })
         }
         composable(Route.Complete::class.qualifiedName!!) {
-//            CompleteScreen(
-//                modifier = Modifier.padding(padding),
-//                onNavigateToHome = { navigator.navigateAndClearStack(Route.Home) })
+            CompleteScreen(
+                modifier = Modifier.padding(padding),
+                viewModel = CompleteViewModel(dataSource),
+                onNavigateToHome = { navigator.navigateAndClearStack(Route.Home) })
         }
     }
 }
