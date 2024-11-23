@@ -17,6 +17,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.sopkathon.team2.presentation.ui.profile.getLevelImage
 import com.sopkathon.team2.ui.theme.GAMJATheme
 import org.sopt.and.R
 
@@ -41,14 +42,18 @@ fun InstagramCard(nickname: String,level:Int,modifier: Modifier = Modifier) {
             style = GAMJATheme.typography.headRegular16
         )
         Spacer(modifier = Modifier.height(42.dp))
-        Image(
-            painter = painterResource(R.drawable.img_dummy),
-            contentDescription = null,
-            modifier = modifier
-                .fillMaxSize()
-                .background(shape = RoundedCornerShape(bottomStart = 20.dp, bottomEnd = 20.dp),color = Color(0xFF252528))
 
-        )
+        val levelImage =getLevelImage(level)
+        levelImage?.let { painterResource(id = it) }?.let {
+            Image(
+                painter = it,
+                contentDescription = null,
+                modifier = modifier
+                    .fillMaxSize()
+                    .background(shape = RoundedCornerShape(bottomStart = 20.dp, bottomEnd = 20.dp),color = Color(0xFF252528))
+
+            )
+        }
 
     }
 }
