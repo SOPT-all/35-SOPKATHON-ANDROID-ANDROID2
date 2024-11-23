@@ -4,6 +4,7 @@ import com.sopkathon.team2.data.model.response.ResponseDummyDto
 import com.sopkathon.team2.data.model.response.ResponseProfileDto
 import retrofit2.Response
 import retrofit2.http.GET
+import com.sopkathon.team2.data.model.response.ResponseUserDto
 import retrofit2.http.POST
 import retrofit2.http.Path
 
@@ -13,4 +14,7 @@ interface Service {
 
     @GET("/boards/{userId}")
     suspend fun loadProfiles(@Path("userId") userId: Long): Response<ResponseProfileDto>
+
+    @GET("/user/{1}")
+    fun getUserById(userId: Long): Response<ResponseUserDto>
 }
