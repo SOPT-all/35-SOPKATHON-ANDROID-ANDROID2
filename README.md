@@ -59,5 +59,7 @@
 ## 📸 팀 사진
 
 - ### Before
+  <img src="https://github.com/user-attachments/assets/4130160e-b0b1-4790-885e-199804c083bd" width="500"  height="350">
+
 
 - ### after
