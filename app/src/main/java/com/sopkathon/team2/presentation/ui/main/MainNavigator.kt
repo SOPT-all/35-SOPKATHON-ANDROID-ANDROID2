@@ -19,7 +19,7 @@ class MainNavigator(
     val currentRoute: Route?
         @Composable get() = when (currentDestination?.route) {
             Route.Home::class.qualifiedName -> Route.Home
-            Route.Profile::class.qualifiedName -> Route.Profile
+            Route.Profile::class.qualifiedName -> Route.Profile(1)
             Route.Write::class.qualifiedName -> Route.Write
             Route.Complete::class.qualifiedName -> Route.Complete
             else -> null
