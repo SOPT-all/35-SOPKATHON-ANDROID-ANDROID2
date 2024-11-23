@@ -30,6 +30,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.sopkathon.team2.presentation.ui.home.component.InstagramShareScreen
+import com.sopkathon.team2.presentation.ui.profile.getLevelImage
 import com.sopkathon.team2.presentation.util.noRippleClickable
 import com.sopkathon.team2.presentation.util.roundedBackgroundWithPadding
 import com.sopkathon.team2.presentation.util.showIf
@@ -113,13 +114,16 @@ fun HomeScreen(
             )
             Spacer(modifier = Modifier.height(28.dp))
 
-            Image(
-                painter = painterResource(R.drawable.img_dummy),
-                contentDescription = null,
-                modifier = modifier
-                    .fillMaxWidth()
+            val levelImage = userInfo?.let { getLevelImage(it.level) }
+            levelImage?.let { painterResource(id = it) }?.let {
+                Image(
+                    painter = it,
+                    contentDescription = null,
+                    modifier = modifier
+                        .fillMaxWidth()
+                )
+            }
 
-            )
             Spacer(modifier = Modifier.weight(1f))
 
             Text(
