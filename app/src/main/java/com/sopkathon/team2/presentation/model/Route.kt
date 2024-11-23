@@ -7,7 +7,9 @@ sealed interface Route {
     data object Home : Route
 
     @Serializable
-    data object Profile : Route
+    data class Profile(
+        val userId: Int
+    ) : Route
 
     @Serializable
     data object Write : Route
