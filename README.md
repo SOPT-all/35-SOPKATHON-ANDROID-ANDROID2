@@ -68,5 +68,7 @@
 
 
 ## 시연영상
+https://github.com/user-attachments/assets/c2aba144-d173-44fc-b54a-87ca4937492c
+
 
 
